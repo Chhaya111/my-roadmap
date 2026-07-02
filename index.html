@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>My Blockchain Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --paper:#FEFAE8;
+  --paper2:#FFF8E7;
+  --paper3:#FDF3D0;
+  --ink:#2C1F0E;
+  --ink2:#6B5230;
+  --ink3:#A08050;
+  --border:#E8D8B0;
+  --border2:#D4C090;
+
+  --yellow:#FFE566;
+  --yellow-bg:#FFFACC;
+  --pink:#FFB3C6;
+  --pink-bg:#FFF0F4;
+  --mint:#A8E6C5;
+  --mint-bg:#E8FAF2;
+  --lavender:#C4B0F0;
+  --lavender-bg:#F0ECFF;
+  --peach:#FFCBA4;
+  --peach-bg:#FFF4EC;
+  --blue:#A8D4F5;
+  --blue-bg:#EBF6FF;
+
+  --sticky-y:#FFFACC;
+  --sticky-p:#FAF0FF;
+  --sticky-g:#F0FFF4;
+  --sticky-b:#EFF8FF;
+}
+
+body{
+  font-family:'Nunito',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  padding-bottom:80px;
+  position:relative;
+}
+
+/* LINED PAPER BACKGROUND */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background-image:
+    repeating-linear-gradient(
+      transparent,
+      transparent 27px,
+      #E8D8A820 27px,
+      #E8D8A820 28px
+    );
+  pointer-events:none;
+  z-index:0;
+}
+body::after{
+  content:"";
+  position:fixed;
+  top:0;bottom:0;left:52px;
+  width:2px;
+  background:#F0A0A840;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* Everything above the bg lines */
+.header,.day-strip,.prog-wrap,.today-card,
+.month-tabs,.month-content,.install-box,.bottom{
+  position:relative;z-index:1;
+}
+
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--paper3);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:5px;}
+
+/* HEADER */
+.header{
+  background:linear-gradient(135deg,#FFF8E0,#FFFACC,#FFF0F4);
+  border-bottom:3px solid var(--border);
+  padding:40px 20px 28px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+/* Tape strips on header */
+.header::before{
+  content:"";
+  position:absolute;top:-4px;left:30px;
+  width:60px;height:18px;
+  background:rgba(255,229,102,0.55);
+  transform:rotate(-2deg);
+  border-radius:2px;
+}
+.header::after{
+  content:"";
+  position:absolute;top:-4px;right:40px;
+  width:50px;height:18px;
+  background:rgba(255,179,198,0.55);
+  transform:rotate(1.5deg);
+  border-radius:2px;
+}
+.header-emoji{
+  font-size:40px;display:block;margin-bottom:8px;
+  filter:drop-shadow(2px 3px 0px rgba(0,0,0,0.08));
+}
+.header h1{
+  font-family:'Caveat',cursive;
+  font-size:clamp(28px,7vw,44px);
+  font-weight:700;
+  color:var(--ink);
+  margin-bottom:4px;
+  letter-spacing:0.01em;
+  text-shadow:2px 2px 0px rgba(255,229,102,0.6);
+}
+.header p{
+  font-size:13px;color:var(--ink2);
+  font-weight:600;letter-spacing:0.02em;
+}
+.header-chips{
+  display:flex;justify-content:center;gap:8px;flex-wrap:wrap;
+  margin-top:14px;
+}
+.hchip{
+  font-size:11px;font-weight:700;
+  padding:5px 14px;border-radius:20px;
+  font-family:'Nunito',sans-serif;
+  box-shadow:0 2px 4px rgba(0,0,0,0.08);
+}
+.hchip.a{background:var(--yellow);color:#5C4000;}
+.hchip.b{background:var(--mint);color:#1A5C3A;}
+.hchip.c{background:var(--lavender);color:#3A2080;}
+.hchip.d{background:var(--pink);color:#6C1030;}
+
+/* DAY STRIP */
+.day-strip{
+  display:flex;gap:10px;padding:14px 16px;
+  overflow-x:auto;scrollbar-width:none;
+  background:var(--paper2);
+  border-bottom:2px solid var(--border);
+}
+.day-strip::-webkit-scrollbar{display:none;}
+.day-stat{
+  min-width:82px;
+  border-radius:12px;padding:10px 12px;
+  text-align:center;flex-shrink:0;
+  box-shadow:2px 3px 0 rgba(0,0,0,0.07);
+  position:relative;
+}
+.day-stat:nth-child(1){background:var(--yellow-bg);border:2px solid var(--yellow);}
+.day-stat:nth-child(2){background:var(--pink-bg);border:2px solid var(--pink);}
+.day-stat:nth-child(3){background:var(--mint-bg);border:2px solid var(--mint);}
+.day-stat:nth-child(4){background:var(--lavender-bg);border:2px solid var(--lavender);}
+.day-stat .num{
+  font-family:'Caveat',cursive;
+  font-size:28px;font-weight:700;
+  color:var(--ink);line-height:1;
+}
+.day-stat .lbl{font-size:9px;color:var(--ink2);margin-top:3px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;}
+
+/* PROGRESS */
+.prog-wrap{
+  padding:16px 16px 10px;
+  background:var(--paper2);
+  border-bottom:2px solid var(--border);
+}
+.prog-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+.prog-label{font-size:10px;font-weight:800;color:var(--ink2);letter-spacing:0.1em;text-transform:uppercase;}
+.prog-pct{font-family:'Caveat',cursive;font-size:26px;color:var(--ink);}
+.bar{height:14px;background:var(--paper3);border-radius:8px;overflow:hidden;border:1.5px solid var(--border);}
+.bar-fill{
+  height:100%;border-radius:8px;
+  background:repeating-linear-gradient(
+    -45deg,
+    var(--yellow),
+    var(--yellow) 8px,
+    var(--peach) 8px,
+    var(--peach) 16px,
+    var(--mint) 16px,
+    var(--mint) 24px,
+    var(--lavender) 24px,
+    var(--lavender) 32px
+  );
+  width:0%;transition:width .6s ease;
+  background-size:200% 100%;
+}
+.prog-sub{font-size:11px;color:var(--ink3);margin-top:6px;text-align:right;font-weight:600;}
+
+/* TODAY CARD — sticky note style */
+.today-card{
+  margin:16px 16px 0;
+  background:var(--sticky-y);
+  border:none;
+  border-radius:4px 16px 16px 4px;
+  padding:18px 20px;
+  border-left:5px solid var(--yellow);
+  box-shadow:3px 4px 12px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8);
+  position:relative;
+}
+.today-card::before{
+  content:"📌";
+  position:absolute;top:-8px;left:16px;
+  font-size:20px;
+}
+.today-card .tag{
+  font-size:10px;font-weight:800;letter-spacing:0.12em;
+  color:#5C4000;
+  background:var(--yellow);
+  display:inline-block;
+  padding:3px 12px;border-radius:20px;
+  margin-bottom:10px;text-transform:uppercase;
+}
+.today-card .day-title{font-size:16px;font-weight:800;color:var(--ink);margin-bottom:4px;}
+.today-card .day-date{font-size:12px;color:var(--ink2);font-weight:600;}
+
+/* MONTH TABS */
+.month-tabs{
+  display:flex;gap:8px;padding:14px 16px 0;
+  overflow-x:auto;scrollbar-width:none;
+}
+.month-tabs::-webkit-scrollbar{display:none;}
+.m-tab{
+  flex-shrink:0;padding:7px 16px;
+  border-radius:8px 8px 0 0;
+  font-size:11px;font-weight:700;
+  letter-spacing:0.04em;
+  border:2px solid var(--border);
+  border-bottom:none;
+  background:var(--paper3);
+  color:var(--ink3);cursor:pointer;
+  transition:all .2s;
+}
+.m-tab:hover{background:var(--paper2);color:var(--ink2);}
+.m-tab.active{
+  background:var(--paper);
+  border-color:var(--border2);
+  color:var(--ink);
+  box-shadow:0 -2px 8px rgba(0,0,0,0.06);
+}
+
+/* MONTH CONTENT */
+.month-content{display:none;padding:0 16px 16px;background:var(--paper);}
+.month-content.show{display:block;}
+.month-header-box{
+  background:linear-gradient(135deg,var(--yellow-bg),var(--peach-bg));
+  border:2px solid var(--border);
+  border-radius:16px;
+  padding:16px 20px;margin:14px 0 12px;
+  display:flex;justify-content:space-between;align-items:center;
+  box-shadow:2px 3px 0 rgba(0,0,0,0.06);
+  position:relative;
+}
+.month-header-box .mname{
+  font-family:'Caveat',cursive;
+  font-size:24px;font-weight:700;color:var(--ink);
+}
+.month-header-box .mfocus{font-size:11px;color:var(--ink2);max-width:170px;text-align:right;line-height:1.6;font-weight:600;}
+.month-header-box .mdates{font-size:10px;color:var(--ink3);margin-top:3px;font-weight:600;}
+
+/* WEEK CARD — notebook page feel */
+.week-card{
+  background:var(--paper);
+  border:2px solid var(--border);
+  border-radius:12px;margin-bottom:10px;
+  overflow:hidden;
+  box-shadow:2px 3px 0 rgba(0,0,0,0.05);
+}
+.week-card.open{border-color:var(--border2);}
+.week-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 16px;cursor:pointer;
+  background:linear-gradient(90deg,var(--paper3),var(--paper2));
+  border-bottom:2px dashed transparent;
+}
+.week-card.open .week-head{border-bottom-color:var(--border);}
+.week-head-left .wtitle{font-size:13px;font-weight:800;color:var(--ink);}
+.week-head-left .wmeta{font-size:11px;color:var(--ink3);margin-top:2px;font-weight:600;}
+.week-head-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
+.wprog{font-size:11px;color:var(--ink3);font-weight:700;}
+.wchev{font-size:18px;color:var(--ink3);transition:transform .2s;font-weight:800;}
+.week-card.open .wchev{transform:rotate(90deg);color:var(--ink2);}
+.week-days{display:none;}
+.week-card.open .week-days{display:block;}
+
+/* DAY ROW */
+.day-row{
+  border-top:1px dashed var(--border);
+  padding:12px 16px;
+  transition:background .15s;
+  position:relative;
+}
+.day-row::before{
+  content:"";
+  position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:transparent;
+}
+.day-row.today-row::before{background:var(--yellow);}
+.day-row:hover{background:var(--paper2);}
+.day-row.today-row{background:var(--yellow-bg);}
+.day-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.day-num-badge{
+  font-size:9px;font-weight:800;
+  background:var(--paper3);color:var(--ink2);
+  border:2px solid var(--border2);
+  padding:2px 10px;border-radius:20px;
+  flex-shrink:0;letter-spacing:0.05em;text-transform:uppercase;
+}
+.day-num-badge.today-badge{
+  background:var(--yellow);color:var(--ink);
+  border-color:#E8C800;font-weight:800;
+}
+.day-date-lbl{font-size:10px;color:var(--ink3);font-weight:600;}
+.day-title-lbl{font-size:12px;font-weight:700;color:var(--ink2);flex:1;}
+
+/* TASKS */
+.task-item{display:flex;align-items:flex-start;gap:9px;padding:5px 0;}
+.task-item input[type=checkbox]{
+  appearance:none;
+  width:17px;height:17px;min-width:17px;
+  border-radius:4px;
+  border:2px solid var(--border2);
+  margin-top:2px;cursor:pointer;
+  position:relative;background:var(--paper);
+  transition:all .15s;
+}
+.task-item.task input[type=checkbox]:checked{background:var(--yellow);border-color:#D4A800;}
+.task-item.eng  input[type=checkbox]:checked{background:var(--mint);border-color:#50A878;}
+.task-item.git  input[type=checkbox]:checked{background:var(--lavender);border-color:#8060C0;}
+.task-item.biz  input[type=checkbox]:checked{background:var(--pink);border-color:#D06080;}
+.task-item input[type=checkbox]:checked::after{
+  content:"✓";position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--ink);font-size:12px;font-weight:900;
+}
+.task-item label{font-size:13px;line-height:1.55;color:var(--ink2);cursor:pointer;flex:1;font-weight:500;}
+.task-item input:checked+label{text-decoration:line-through;color:var(--ink3);}
+
+/* PILLS — highlighter style */
+.pill{
+  display:inline-block;font-size:9px;font-weight:800;
+  padding:2px 8px;border-radius:4px;
+  margin-right:5px;vertical-align:middle;
+  letter-spacing:0.05em;text-transform:uppercase;
+}
+.pill-task{background:var(--yellow);color:#5C4000;}
+.pill-eng{background:var(--mint);color:#1A5C3A;}
+.pill-git{background:var(--lavender);color:#3A1A80;}
+.pill-biz{background:var(--pink);color:#6C1030;}
+
+/* INSTALL */
+.install-box{
+  margin:16px 16px 0;
+  background:var(--sticky-g);
+  border-left:5px solid var(--mint);
+  border-radius:4px 16px 16px 4px;
+  border-top:2px solid var(--border);
+  border-right:2px solid var(--border);
+  border-bottom:2px solid var(--border);
+  padding:18px 20px;
+  box-shadow:2px 3px 0 rgba(0,0,0,0.06);
+}
+.install-box h3{
+  font-family:'Caveat',cursive;
+  font-size:20px;font-weight:700;color:var(--ink);margin-bottom:12px;
+}
+.install-box ol{padding-left:18px;font-size:13px;color:var(--ink2);line-height:2.1;font-weight:500;}
+.install-box b{color:var(--ink);font-weight:800;}
+
+/* BOTTOM */
+.bottom{padding:24px 16px 0;text-align:center;}
+.reset-btn{
+  background:var(--paper2);border:2px solid var(--border);
+  color:var(--ink3);font-size:11px;font-family:'Nunito',sans-serif;
+  padding:9px 22px;border-radius:20px;cursor:pointer;
+  letter-spacing:0.05em;text-transform:uppercase;font-weight:700;
+  transition:all .2s;box-shadow:2px 2px 0 rgba(0,0,0,0.06);
+}
+.reset-btn:hover{border-color:var(--pink);color:#6C1030;background:var(--pink-bg);}
+.save-note{font-size:11px;color:var(--ink3);margin-top:8px;min-height:14px;font-weight:600;}
+.today-highlight{
+  margin-right:6px;font-size:9px;
+  background:var(--yellow);color:var(--ink);
+  padding:2px 8px;border-radius:4px;
+  display:inline-block;vertical-align:middle;font-weight:800;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header-emoji">📖</span>
+  <h1>My Blockchain Journey🎯</h1>
+  <p>4 Months • Day by Day • Diwali to first Bangalore</p>
+  <div class="header-chips">
+    <span class="hchip a">🔥 Solidity</span>
+    <span class="hchip b">🌿 English</span>
+    <span class="hchip c">💜 GitHub</span>
+    <span class="hchip a">✨ Companies</span>
+  </div>
+</div>
+
+<div class="day-strip">
+  <div class="day-stat">
+    <div class="num" id="day-num">1</div>
+    <div class="lbl">Day no.</div>
+  </div>
+  <div class="day-stat alt">
+    <div class="num" id="days-left">112</div>
+    <div class="lbl">Only Days</div>
+  </div>
+  <div class="day-stat">
+    <div class="num" id="week-num">1</div>
+    <div class="lbl">Week</div>
+  </div>
+  <div class="day-stat alt">
+    <div class="num" id="month-num">1</div>
+    <div class="lbl">Month</div>
+  </div>
+</div>
+
+<div class="prog-wrap">
+  <div class="prog-row">
+    <span class="prog-label">Overall Progress</span>
+    <span class="prog-pct" id="pct-disp">0%</span>
+  </div>
+  <div class="bar"><div class="bar-fill" id="bar"></div></div>
+  <div class="prog-sub" id="prog-sub">0 / 0 tasks</div>
+</div>
+
+<div class="today-card" id="today-card">
+  <div class="tag">AAJ KA DIN</div>
+  <div class="day-title" id="today-title">Day 1 — Week 1</div>
+  <div class="day-date" id="today-date"></div>
+</div>
+
+<div class="month-tabs" id="month-tabs"></div>
+<div id="month-panels"></div>
+
+<!-- <div class="install-box">
+  <h3>Phone me app jaisa kaise chalao</h3>
+  <ol>
+    <li>Is page ka link address bar se copy karo.</li>
+    <li><b>Android:</b> Chrome → 3-dots menu → "Add to Home screen"</li>
+    <li><b>iPhone:</b> Safari → Share icon → "Add to Home Screen"</li>
+    <li>Ab home screen pe icon ban jayega — full screen app jaisa khulega.</li>
+    <li><b>Data save rehta hai</b> — Chrome band karne ya phone restart karne ke baad bhi progress nahi udti.</li>
+  </ol>
+</div> -->
+
+<div class="bottom">
+  <button class="reset-btn" id="reset-btn">Sab progress reset karo</button>
+  <div class="save-note" id="save-note"></div>
+</div>
+
+<script>
+const ROADMAP = [
+  { name:"Month 1", focus:"Solidity fundamentals + pehla contract",
+    weeks:[
+      { title:"Week 1 — Blockchain basics + Remix setup", meta:"Concepts + first deploy",
+        days:[
+          { title:"Blockchain kya hai — concepts", tasks:[
+            {t:"task",text:"Blockchain, Ethereum aur how crypto works — Code Eater Hindi playlist se dekho (1 ghanta)"},
+            {t:"eng",text:"10 naye English words likho jo aaj video me sune — meaning ke sath notebook me"},
+            {t:"git",text:"GitHub pe naya repo banao naam 'blockchain-journey', README.md likho apne baare me"},
+            {t:"biz",text:"Wellfound.com pe 'blockchain developer bangalore' search karo — sirf dekho aaj, apply baad me"}
+          ]},
+          { title:"Smart contracts + wallets samjho", tasks:[
+            {t:"task",text:"Smart contracts kya hote hain, gas fees kya hai, wallet kaise kaam karta hai — video se"},
+            {t:"eng",text:"Aaj seekha hua concept 3 sentences English me apni notebook me likho"},
+            {t:"git",text:"Notes.md file repo me add karo — aaj ke concepts short me likhke commit karo"},
+            {t:"biz",text:"DevFolio.co pe account banao — upcoming hackathons ki list dekho"}
+          ]},
+          { title:"Remix IDE install + Hello World", tasks:[
+            {t:"task",text:"Remix IDE (remix.ethereum.org) open karo, interface samjho, ek simple HelloWorld.sol likho"},
+            {t:"eng",text:"'How to deploy a smart contract' — ek English article padho aur 5 lines summary likho"},
+            {t:"git",text:"HelloWorld.sol ko repo me daalo, commit message: 'feat: first solidity contract'"},
+            {t:"biz",text:"ETHIndia ke baare me padho — kab hota hai, kaise register karte hain"}
+          ]},
+          { title:"MetaMask setup + testnet ETH", tasks:[
+            {t:"task",text:"MetaMask wallet install karo (Chrome extension), Sepolia testnet add karo, faucet se free ETH lo"},
+            {t:"eng",text:"MetaMask ke 3 features English me explain karo notebook me — apne words me"},
+            {t:"git",text:"'metamask-setup-notes.md' likhke commit karo — troubleshooting tips include karo"},
+            {t:"biz",text:"CoinDCX, WazirX, Polygon ke LinkedIn pages follow karo — job alerts on karo"}
+          ]},
+          { title:"HelloWorld contract deploy karo", tasks:[
+            {t:"task",text:"Apna HelloWorld.sol Remix se compile karo, Sepolia testnet pe deploy karo, transaction check karo"},
+            {t:"eng",text:"Apne friend ya mirror ke saamne English me bol — 'Today I deployed my first smart contract...'"},
+            {t:"git",text:"Deployed contract address notes.md me daalo, GitHub commit karo"},
+            {t:"biz",text:"cryptojobslist.com pe 'fresher' ya 'junior' blockchain roles dekho — 5 min research"}
+          ]},
+          { title:"Week 1 revision", tasks:[
+            {t:"task",text:"Week 1 ke sab concepts ek baar bina video dekhe recall karo — jo yaad na aaye wahi dobara dekho"},
+            {t:"eng",text:"Is hafte ke 50 words review karo — 10 sentences banao unse English me"},
+            {t:"git",text:"Week-1-summary.md banao — kya seekha, kya confusing tha, aage kya karna hai — commit karo"},
+            {t:"biz",text:"LinkedIn pe 'Web3 Developer India' search karo — 3-5 log follow karo jo fresher to web3 gaye hain"}
+          ]},
+          { title:"Ek chhota experiment — khud soch kar banao", tasks:[
+            {t:"task",text:"Bina tutorial ke ek 'SimpleStorage' contract khud likho — number store aur retrieve karne wala"},
+            {t:"eng",text:"Apne GitHub README ko English me update karo — apne baare me 5-6 sentences likho"},
+            {t:"git",text:"SimpleStorage.sol commit karo — is hafte ka pura code check karo ki clean hai"},
+            {t:"biz",text:"Ek Web3 WhatsApp ya Telegram community join karo — sirf observe karo abhi"}
+          ]}
+        ]},
+      { title:"Week 2 — Solidity syntax deep dive", meta:"Variables, functions, types",
+        days:[
+          { title:"Data types aur variables", tasks:[
+            {t:"task",text:"uint, int, bool, string, address, bytes — sab data types practice karo Remix pe, 10 examples"},
+            {t:"eng",text:"'Solidity Data Types' English me ek chhota article padho — 5 sentences summary likho"},
+            {t:"git",text:"data-types-practice.sol banao, sab types ka use karke — commit karo"},
+            {t:"biz",text:"Antier Solutions aur LeewayHertz (blockchain agencies) ke careers page bookmark karo"}
+          ]},
+          { title:"Functions — visibility aur modifiers", tasks:[
+            {t:"task",text:"public, private, internal, external, view, pure — har ek ko code me likh kar samjho"},
+            {t:"eng",text:"'What is function visibility in Solidity?' — English me 4-5 lines explain karo notebook me"},
+            {t:"git",text:"functions-practice.sol commit karo — comments English me likho har function ke upar"},
+            {t:"biz",text:"LinkedIn pe 'blockchain developer fresher' search — koi profile dekho jo recently hire hua ho"}
+          ]},
+          { title:"Control flow — if/else, loops", tasks:[
+            {t:"task",text:"if/else, for loop, while loop, require() — Solidity me kaise kaam karte hain, practice karo"},
+            {t:"eng",text:"Aaj ka concept English me ek paragraph likho — 'Today I learned about...'"},
+            {t:"git",text:"control-flow.sol commit karo"},
+            {t:"biz",text:"Hackathon search — ETHIndia 2026 ya Polygon hackathon dates check karo Devfolio pe"}
+          ]},
+          { title:"Events aur Logs", tasks:[
+            {t:"task",text:"Events declare karna, emit karna, logs kya hote hain — ek contract me events add karo"},
+            {t:"eng",text:"3 English tech words jo aaj sune — dictionary me meaning dekho, sentence banao"},
+            {t:"git",text:"events-practice.sol commit karo — explain karo README me events kyun useful hain"},
+            {t:"biz",text:"Twitter/X pe 'Web3 India' search karo — kuch developers follow karo job market samajhne ke liye"}
+          ]},
+          { title:"Mappings aur Arrays", tasks:[
+            {t:"task",text:"mapping(address => uint), arrays, push, pop — ek simple 'Balances' contract banao"},
+            {t:"eng",text:"'Explain mappings in Solidity' — English me 5 lines notebook me"},
+            {t:"git",text:"mappings-arrays.sol commit karo"},
+            {t:"biz",text:"Naukri.com pe 'blockchain developer fresher' search — openings ka idea lo, apply abhi nahi"}
+          ]},
+          { title:"Structs aur enums", tasks:[
+            {t:"task",text:"Struct banao, enum banao, unhe mapping ke sath use karo — ek 'Student Records' contract"},
+            {t:"eng",text:"Ek choti English paragraph likho — 'What I built today and how it works'"},
+            {t:"git",text:"structs-enums.sol commit karo"},
+            {t:"biz",text:"Biconomy aur Instadapp ke Twitter/LinkedIn dekho — unki team kisi Web3 person ko hire kar rahi hai?"}
+          ]},
+          { title:"Week 2 revision + khud se contract", tasks:[
+            {t:"task",text:"Bina dekhe Week 2 ke sab concepts ka use karke ek 'Todo List' contract likho"},
+            {t:"eng",text:"Week 2 ka summary GitHub README me English me likho — 8-10 sentences"},
+            {t:"git",text:"todo-contract.sol aur updated README commit karo — is hafte ka poora work check karo"},
+            {t:"biz",text:"Devfolio pe apna account complete karo — profile properly fill karo"}
+          ]}
+        ]},
+      { title:"Week 3 — Intermediate Solidity", meta:"Modifiers, inheritance, error handling",
+        days:[
+          { title:"Modifiers — custom function guards", tasks:[
+            {t:"task",text:"Custom modifiers banao (jaise onlyOwner), unhe functions pe apply karo — 5 examples"},
+            {t:"eng",text:"'What are modifiers in Solidity' — English me explain karo 4 lines me"},
+            {t:"git",text:"modifiers.sol commit karo — comments English me"},
+            {t:"biz",text:"Wellfound.com pe 'Bangalore Web3' filter laga kar dekho — companies note karo"}
+          ]},
+          { title:"Constructor aur Ownership", tasks:[
+            {t:"task",text:"Constructor kya karta hai, msg.sender, msg.value — ek 'Ownable' contract khud banao"},
+            {t:"eng",text:"5 English words jo aksar code me aate hain — 'deploy, transaction, execute, revert, emit'"},
+            {t:"git",text:"ownable-contract.sol commit karo"},
+            {t:"biz",text:"ETHIndia website check karo — registration kab khulti hai"}
+          ]},
+          { title:"Error handling — require, revert, assert", tasks:[
+            {t:"task",text:"require(), revert(), assert() ka use karo alag alag scenarios me — kab kaun sa?"},
+            {t:"eng",text:"Error messages English me likhna practice karo — 'Please provide valid amount', 'Unauthorized access'"},
+            {t:"git",text:"error-handling.sol commit karo — har require ka reason string English me"},
+            {t:"biz",text:"LinkedIn pe ek Web3 developer ko message karo — 'How did you start your journey?' — polite English me"}
+          ]},
+          { title:"Inheritance basics", tasks:[
+            {t:"task",text:"Contract inheritance seekho — is, super, override, virtual — ek example banao"},
+            {t:"eng",text:"'Inheritance in Solidity' — English me 5 lines note karo"},
+            {t:"git",text:"inheritance-example.sol commit karo"},
+            {t:"biz",text:"Polygon Discord ya Telegram community join karo — lurk karo, observe karo"}
+          ]},
+          { title:"Interfaces aur Abstract contracts", tasks:[
+            {t:"task",text:"Interface aur abstract contract ka concept samjho — ek chhota example banao dono ka"},
+            {t:"eng",text:"Aaj ka topic English me 3 sentences me explain karo — notebook"},
+            {t:"git",text:"interfaces-example.sol commit karo"},
+            {t:"biz",text:"5 blockchain companies LinkedIn follow karo — Bangalore based preferred"}
+          ]},
+          { title:"Payable functions + ETH receive", tasks:[
+            {t:"task",text:"payable keyword, receive(), fallback() — ek contract banao jo ETH accept kare"},
+            {t:"eng",text:"'How does ETH transfer work in smart contracts' — English me explain karo"},
+            {t:"git",text:"payable-example.sol commit karo"},
+            {t:"biz",text:"Devfolio pe upcoming online hackathons check karo — koi ek note kar lo target ke liye"}
+          ]},
+          { title:"Week 3 revision + mini-project plan", tasks:[
+            {t:"task",text:"Voting contract ka design paper pe plan karo — kaun sa data store hoga, kaun se functions"},
+            {t:"eng",text:"Apna Week 3 GitHub README English me update karo — kya seekha, next week kya karengi"},
+            {t:"git",text:"planning-notes.md commit karo — Voting contract ka pseudocode include karo"},
+            {t:"biz",text:"3 companies ke career pages bookmark karo jaha baad me apply karogi"}
+          ]}
+        ]},
+      { title:"Week 4 — Pehla poora project: Voting dApp", meta:"Solidity + Remix + testnet deploy",
+        days:[
+          { title:"Voting contract — Part 1", tasks:[
+            {t:"task",text:"Voting contract likhna shuru karo — candidates array, voter mapping, vote function"},
+            {t:"eng",text:"Contract ke comments English me likho — 'This function allows a user to vote for a candidate'"},
+            {t:"git",text:"voting-v1.sol commit karo — even if incomplete"},
+            {t:"biz",text:"Roz ka 5 min check — Wellfound ya cryptojobslist pe koi naya job to nahi aaya?"}
+          ]},
+          { title:"Voting contract — Part 2", tasks:[
+            {t:"task",text:"Results function, owner controls, vote count — Voting contract complete karo"},
+            {t:"eng",text:"3 English technical sentences write karo jo describe karein tumhara contract"},
+            {t:"git",text:"voting-complete.sol commit karo"},
+            {t:"biz",text:"ETHIndia ya Polygon hackathon ke liye ek idea sochna shuru karo — 5 min brainstorm"}
+          ]},
+          { title:"Testing on Remix", tasks:[
+            {t:"task",text:"Remix JavaScript VM me voting contract ke sab functions test karo — har edge case try karo"},
+            {t:"eng",text:"Test cases ko English me document karo — 'Test 1: Only owner can add candidate'"},
+            {t:"git",text:"testing-notes.md commit karo — sab test cases likhke"},
+            {t:"biz",text:"LinkedIn pe 'I'm learning blockchain development' wala update likho — seedha simple English me"}
+          ]},
+          { title:"Sepolia testnet pe deploy", tasks:[
+            {t:"task",text:"MetaMask se Sepolia pe switch karo, voting contract deploy karo, transaction hash note karo"},
+            {t:"eng",text:"'Deploying to testnet means...' — English me 5 lines explain karo notebook me"},
+            {t:"git",text:"deployed-addresses.md me contract address daalo aur commit karo"},
+            {t:"biz",text:"Blockchain companies ke Glassdoor reviews padho — salary aur culture samajhne ke liye"}
+          ]},
+          { title:"README likhna — English practice", tasks:[
+            {t:"task",text:"Project ke liye professional README.md likho — project description, features, how to use, tech stack"},
+            {t:"eng",text:"Aaj puri English writing practice hai — README he tumhari writing exercise hai"},
+            {t:"git",text:"Polished README.md commit karo — ek professional README template use karo"},
+            {t:"biz",text:"GitHub profile ka bio update karo — English me 2 lines 'Blockchain Developer | Solidity | Ethereum'"}
+          ]},
+          { title:"Month 1 revision + poori picture", tasks:[
+            {t:"task",text:"Month 1 ke sab concepts ek whitepaper/mind-map pe likho — kya seekha, kya confusing tha"},
+            {t:"eng",text:"Month 1 ka summary paragraph English me likho — 10 lines, notebook me"},
+            {t:"git",text:"Month 1 final commit — sab files clean hain? README updated? Code commented?"},
+            {t:"biz",text:"Monthly check — Wellfound, cryptojobslist, LinkedIn pe naye blockchain freshers ke liye kya aaya?"}
+          ]},
+          { title:"Rest + next month ki planning", tasks:[
+            {t:"task",text:"Web3.js ya Ethers.js ka introduction padho — ye kya hai, kab use hota hai? (light study, notes)"},
+            {t:"eng",text:"Month 2 ke liye ek English journal entry likho — 'My plan for next month is...'"},
+            {t:"git",text:"Month 2 roadmap plan ek file me likho aur commit karo"},
+            {t:"biz",text:"2 blockchain developers ke LinkedIn profiles dekho — unka journey kaise raha?"}
+          ]}
+        ]}
+    ]},
+  { name:"Month 2", focus:"Full dApp — smart contract + frontend",
+    weeks:[
+      { title:"Week 5 — Web3.js / Ethers.js basics", meta:"Frontend-contract connection",
+        days:[
+          { title:"Ethers.js install + setup", tasks:[
+            {t:"task",text:"Node.js project banao, npm install ethers — basic setup, provider connect karo"},
+            {t:"eng",text:"'Why do we need Ethers.js' — English me 4 lines explain karo"},
+            {t:"git",text:"web3-starter folder banao, package.json commit karo"},
+            {t:"biz",text:"cryptojobslist.com pe Bangalore + junior filter — koi naya listing?"}
+          ]},
+          { title:"MetaMask connect karke wallet address lena", tasks:[
+            {t:"task",text:"Browser me MetaMask connect karo code se — wallet address console pe print karo"},
+            {t:"eng",text:"'How MetaMask connects to a website' — English me 5 lines"},
+            {t:"git",text:"wallet-connect.js commit karo"},
+            {t:"biz",text:"Devfolio pe profile update karo — skills me Solidity, Web3 add karo"}
+          ]},
+          { title:"Contract se data read karna", tasks:[
+            {t:"task",text:"Apne deployed Voting contract se data read karo (candidates list, vote count) using Ethers.js"},
+            {t:"eng",text:"Aaj ka kaam English me document karo — README me ek function explain karo"},
+            {t:"git",text:"read-contract.js commit karo"},
+            {t:"biz",text:"Ek Web3 developer ki success story padho — kisi Hindi ya English blog me"}
+          ]},
+          { title:"Contract me data write karna (transactions)", tasks:[
+            {t:"task",text:"Ethers.js se contract function call karo jo write karta ho — vote submit karo code se"},
+            {t:"eng",text:"'The difference between read and write operations on blockchain' — English notes"},
+            {t:"git",text:"write-contract.js commit karo"},
+            {t:"biz",text:"LinkedIn pe koi blockchain job post share karo ya comment karo — visibility badhao"}
+          ]},
+          { title:"Transaction events listen karna", tasks:[
+            {t:"task",text:"Contract events ko frontend me listen karo — vote hone pe UI update ho"},
+            {t:"eng",text:"Event listening ka concept English me 4 lines explain karo"},
+            {t:"git",text:"events-listener.js commit karo"},
+            {t:"biz",text:"Hackathon research — online hackathon jo agle 2 mahine me ho — register plan karo"}
+          ]},
+          { title:"Error handling frontend me", tasks:[
+            {t:"task",text:"Transaction fail ho to user ko proper message dikhao — try/catch use karo"},
+            {t:"eng",text:"User-friendly English error messages likho — 5 alag scenarios ke liye"},
+            {t:"git",text:"error-handling.js commit karo"},
+            {t:"biz",text:"Wellfound pe 3 companies ko wishlist me add karo — baad me apply karogi unhe"}
+          ]},
+          { title:"Week 5 revision + mini-project plan", tasks:[
+            {t:"task",text:"Crowdfunding dApp ka complete design karo — UI wireframe paper pe, data flow diagram"},
+            {t:"eng",text:"Project ki feature list English me likho — 'User can create campaign, fund it, withdraw'"},
+            {t:"git",text:"project-plan.md commit karo — wireframe ka description aur tech stack"},
+            {t:"biz",text:"5 min daily check — Naukri.com pe 'blockchain developer' — koi naya result?"}
+          ]}
+        ]},
+      { title:"Week 6 — Crowdfunding dApp frontend", meta:"UI + wallet + contract integration",
+        days:[
+          { title:"HTML/CSS UI banana", tasks:[
+            {t:"task",text:"Crowdfunding dApp ka basic HTML + CSS layout banao — header, campaign cards, create button"},
+            {t:"eng",text:"UI ke button labels English me likho — 'Create Campaign', 'Fund Now', 'Withdraw'"},
+            {t:"git",text:"index.html + style.css commit karo"},
+            {t:"biz",text:"Ek blockchain company ka careers page check karo — kyunki opening kabhi bhi aa sakti hai"}
+          ]},
+          { title:"Wallet connect button", tasks:[
+            {t:"task",text:"'Connect Wallet' button banana — MetaMask connect hone pe address dikhao, disconnect option"},
+            {t:"eng",text:"Wallet connection ka user flow English me describe karo — step by step"},
+            {t:"git",text:"wallet-ui.js commit karo"},
+            {t:"biz",text:"Twitter/X pe #Web3India aur #SolidityDev hashtag search — trending topics dekho"}
+          ]},
+          { title:"Campaign create karna — frontend", tasks:[
+            {t:"task",text:"Form banao — campaign title, description, target amount — submit pe smart contract call karo"},
+            {t:"eng",text:"Form labels aur placeholder text English me professionally likho"},
+            {t:"git",text:"create-campaign.js commit karo"},
+            {t:"biz",text:"2 Bangalore blockchain startups dhundho jo 50 se kam employees ke hain — note karo"}
+          ]},
+          { title:"Campaign list dikhana — blockchain se", tasks:[
+            {t:"task",text:"Blockchain se sab campaigns fetch karo aur UI me cards me dikhao — live data"},
+            {t:"eng",text:"'How I fetched data from blockchain' — English me 5 lines likh ke GitHub README me daalo"},
+            {t:"git",text:"campaign-list.js commit karo"},
+            {t:"biz",text:"Devfolio pe dekho — koi hackathon jis me blockchain track ho, October se pehle?"}
+          ]},
+          { title:"Fund campaign — ETH bhejna", tasks:[
+            {t:"task",text:"'Fund Now' button — user ka ETH smart contract ko transfer ho, UI update ho"},
+            {t:"eng",text:"Transaction flow English me explain karo — user ke perspective se"},
+            {t:"git",text:"fund-campaign.js commit karo"},
+            {t:"biz",text:"LinkedIn profile ki 'About' section update karo — English me polished bio likho"}
+          ]},
+          { title:"Withdraw function + polish", tasks:[
+            {t:"task",text:"Campaign owner funds withdraw kar sake — frontend me withdraw button add karo"},
+            {t:"eng",text:"Feature list update karo README me — English me 'Completed features' section"},
+            {t:"git",text:"withdraw.js commit karo — sab files review karo"},
+            {t:"biz",text:"Kisi LinkedIn recruiter ya HR ko connect request bhejo (Bangalore blockchain company se)"}
+          ]},
+          { title:"Week 6 revision", tasks:[
+            {t:"task",text:"Puri dApp test karo — create, fund, withdraw — sab kuch Remix se testnet pe check karo"},
+            {t:"eng",text:"'How my dApp works' — English me ek paragraph likho, jaise kisi ko explain kar rahe ho"},
+            {t:"git",text:"Week 6 final commit — README comprehensive hai? Screenshots hain?"},
+            {t:"biz",text:"Monthly companies check — koi naya opening Bangalore me? Wellfound filter laga kar dekho"}
+          ]}
+        ]},
+      { title:"Week 7 — dApp polish + bug fixing", meta:"Testing + UX + responsive",
+        days:[
+          { title:"Mobile responsive banana", tasks:[
+            {t:"task",text:"CSS media queries use karke dApp ko mobile friendly banao — phone pe achha dikhe"},
+            {t:"eng",text:"'Responsive design means...' — English me 4 lines notebook me"},
+            {t:"git",text:"responsive-styles.css commit karo"},
+            {t:"biz",text:"Hackathon shortlist — ek final decide karo aur register karo (online ho to better)"}
+          ]},
+          { title:"Loading states add karna", tasks:[
+            {t:"task",text:"Transaction hote waqt spinner dikhao, button disable karo — user experience improve karo"},
+            {t:"eng",text:"Loading messages English me likho — 'Processing your transaction...'"},
+            {t:"git",text:"loading-states.js commit karo"},
+            {t:"biz",text:"3 companies ko LinkedIn pe message karo — seedha job manga mat, unka kaam samjho"}
+          ]},
+          { title:"Edge cases test karna", tasks:[
+            {t:"task",text:"0 ETH fund karo, double vote karo, unauthorized withdraw try karo — sab errors proper handle hone chahiye"},
+            {t:"eng",text:"Test cases ki list English me likho — 'Test: User without wallet tries to vote'"},
+            {t:"git",text:"test-cases.md commit karo"},
+            {t:"biz",text:"cryptojobslist.com pe roz 5 min — koi junior/entry level role?"}
+          ]},
+          { title:"UI visual improvements", tasks:[
+            {t:"task",text:"Colors, fonts, spacing improve karo — ek professional UI banana, CSS me thoda time do"},
+            {t:"eng",text:"UI decisions English me justify karo README me — 'I chose this color because...'"},
+            {t:"git",text:"design-update.css commit karo"},
+            {t:"biz",text:"Polygon ke open roles check karo — polygon.technology/careers"}
+          ]},
+          { title:"Etherscan integration", tasks:[
+            {t:"task",text:"Transaction hash ko Etherscan link me wrap karo — user seedha transaction dekh sake"},
+            {t:"eng",text:"'What is Etherscan and why it matters' — English 4 lines"},
+            {t:"git",text:"etherscan-links.js commit karo"},
+            {t:"biz",text:"LinkedIn pe ek post likho — 'Working on my first Ethereum dApp' — simple English me, screenshot add karo"}
+          ]},
+          { title:"MetaMask error handling", tasks:[
+            {t:"task",text:"MetaMask not installed, wrong network, transaction rejected — sab errors handle karo user-friendly message ke sath"},
+            {t:"eng",text:"Error messages English me user-friendly banao — technical mat rakho"},
+            {t:"git",text:"metamask-errors.js commit karo"},
+            {t:"biz",text:"Glassdoor pe 'blockchain developer Bangalore' — salary aur interview experience padho"}
+          ]},
+          { title:"Week 7 full testing", tasks:[
+            {t:"task",text:"Pura dApp fresh browser me kholo — staging test — sab kuch ek baar test karo fresh eyes se"},
+            {t:"eng",text:"Bug report English me likho — 'Bug 1: When user has no ETH, error message was...'"},
+            {t:"git",text:"All fixes commit karo — clean commit messages English me"},
+            {t:"biz",text:"Week ka companies check — Wellfound + LinkedIn + cryptojobslist — 5 min sab pe"}
+          ]}
+        ]},
+      { title:"Week 8 — Project 1 complete + showcase", meta:"Deploy + resume update + LinkedIn",
+        days:[
+          { title:"Final deploy to Sepolia", tasks:[
+            {t:"task",text:"Smart contract ka final version Sepolia pe deploy karo — frontend usse connect karo"},
+            {t:"eng",text:"Deployment steps English me document karo — step by step guide"},
+            {t:"git",text:"Final version tag karo — 'v1.0.0' — GitHub release banao"},
+            {t:"biz",text:"Job alert set karo — Naukri, LinkedIn pe 'blockchain' 'Bangalore' notifications on karo"}
+          ]},
+          { title:"Screenshots + demo video", tasks:[
+            {t:"task",text:"Screen recording karo — project ka full demo, 2-3 minutes — dApp ka use dikhao"},
+            {t:"eng",text:"Video me English me narrate karo — 'This is my Crowdfunding dApp, let me show you...'"},
+            {t:"git",text:"screenshots/ folder commit karo — README me images add karo"},
+            {t:"biz",text:"Wellfound pe 3 companies ko wishlist me add karo — baad me apply karogi"}
+          ]},
+          { title:"README polish — professional version", tasks:[
+            {t:"task",text:"GitHub README ko aakhri baar polish karo — features, tech stack, screenshots, live demo link"},
+            {t:"eng",text:"Aaj puri writing practice hai — ek proper README likhna is a big English skill"},
+            {t:"git",text:"Final README commit — formatting check karo (markdown preview)"},
+            {t:"biz",text:"GitHub profile pe pinned repo add karo — ye dApp wala project"}
+          ]},
+          { title:"Resume update", tasks:[
+            {t:"task",text:"Resume me Crowdfunding dApp properly add karo — kya banaya, tech stack, GitHub link"},
+            {t:"eng",text:"Resume bullets English me likho — action verbs use karo: 'Built', 'Deployed', 'Implemented'"},
+            {t:"git",text:"Resume ko repo me PDF format me commit karo (ek digital backup)"},
+            {t:"biz",text:"Ek company pe seedha apply karo — pehli baar try karo — result ki chinta mat karo abhi"}
+          ]},
+          { title:"LinkedIn project post", tasks:[
+            {t:"task",text:"LinkedIn pe apna pehla project post karo — screenshot, description, GitHub link — celebrate karo!"},
+            {t:"eng",text:"Post English me likho — '2 months ago I didn't know Solidity. Today I deployed my first dApp.'"},
+            {t:"git",text:"GitHub activity check karo — contribution graph active hai na?"},
+            {t:"biz",text:"Post ke baad log connect karein ya comment karein — unhe reply dena practice hai"}
+          ]},
+          { title:"Month 2 revision", tasks:[
+            {t:"task",text:"Month 2 ke sab concepts mind-map pe likho — Web3.js, frontend, transactions, events"},
+            {t:"eng",text:"Month 2 summary paragraph English me likho — 'This month I learned...'"},
+            {t:"git",text:"Month 2 final commit — sab repos clean hain?"},
+            {t:"biz",text:"Monthly big check — sabhi platforms pe blockchain openings check karo — companies note karo"}
+          ]},
+          { title:"Next month ki planning + rest", tasks:[
+            {t:"task",text:"ERC-20 token standard ka introduction padho — kya hai, kaise kaam karta hai (light study)"},
+            {t:"eng",text:"'My plan for Month 3' — English me journal entry likho"},
+            {t:"git",text:"Month 3 roadmap file commit karo repo me"},
+            {t:"biz",text:"2 blockchain developers se LinkedIn pe connect karo — polite intro message English me bhejo"}
+          ]}
+        ]}
+    ]},
+  { name:"Month 3", focus:"2nd project + portfolio complete",
+    weeks:[
+      { title:"Week 9 — ERC-20 Token", meta:"Token standard + custom token deploy",
+        days:[
+          { title:"ERC-20 standard samjho", tasks:[
+            {t:"task",text:"ERC-20 kya hai, transfer, approve, allowance functions — OpenZeppelin docs padho"},
+            {t:"eng",text:"'What is an ERC-20 token' — English me 5 lines explain karo"},
+            {t:"git",text:"erc20-notes.md commit karo"},
+            {t:"biz",text:"Devfolio pe koi hackathon aane wala hai? Register karo agar timing sahi ho"}
+          ]},
+          { title:"Custom ERC-20 token likhna", tasks:[
+            {t:"task",text:"OpenZeppelin import karke apna custom ERC-20 token banao — naam, symbol, initial supply"},
+            {t:"eng",text:"Token ka whitepaper 5 lines English me — 'My token is called X and it does Y'"},
+            {t:"git",text:"MyToken.sol commit karo"},
+            {t:"biz",text:"CoinDCX careers page check karo — internship ya fresher role?"}
+          ]},
+          { title:"Token test karna Remix me", tasks:[
+            {t:"task",text:"Token deploy karo Remix VM me — transfer test karo, approve test karo, balance check karo"},
+            {t:"eng",text:"Test results English me document karo"},
+            {t:"git",text:"token-tests.md commit karo"},
+            {t:"biz",text:"Linkedin pe 'ERC-20 token' post karo — progress share karo community ke saath"}
+          ]},
+          { title:"Token testnet pe deploy", tasks:[
+            {t:"task",text:"Sepolia pe token deploy karo, Etherscan pe verify karo (agar time ho), kisi ko transfer karo"},
+            {t:"eng",text:"'How to verify a contract on Etherscan' — English guide likhna start karo"},
+            {t:"git",text:"Deployed token address note karo aur commit karo"},
+            {t:"biz",text:"Wellfound + cryptojobslist daily 5 min check"}
+          ]},
+          { title:"Token ka simple frontend", tasks:[
+            {t:"task",text:"Token balance dikhao, transfer karo — simple HTML frontend banao ERC-20 ke liye"},
+            {t:"eng",text:"Frontend ke labels professionally likho English me"},
+            {t:"git",text:"erc20-frontend/ folder commit karo"},
+            {t:"biz",text:"Blockchain council ya similar platforms pe koi free certificate explore karo"}
+          ]},
+          { title:"Hardhat setup + testing", tasks:[
+            {t:"task",text:"Hardhat install karo, ek test file likho ERC-20 ke liye — automated testing shuru"},
+            {t:"eng",text:"'Why testing is important in blockchain' — English me 4 lines"},
+            {t:"git",text:"hardhat-tests/ commit karo"},
+            {t:"biz",text:"Ek company ko seedha apply karo — portfolio link zaroor daalo cover message me"}
+          ]},
+          { title:"Week 9 revision", tasks:[
+            {t:"task",text:"ERC-20 ka sab kuch bina dekhe recall karo — khud ek token zero se banao"},
+            {t:"eng",text:"Week 9 summary English me GitHub README me update karo"},
+            {t:"git",text:"Week 9 final commit — tests pass ho rahe hain?"},
+            {t:"biz",text:"Weekly companies check — 5 min sab platforms pe"}
+          ]}
+        ]},
+      { title:"Week 10 — ERC-721 (NFT)", meta:"NFT standard + minting contract",
+        days:[
+          { title:"ERC-721 standard samjho", tasks:[
+            {t:"task",text:"ERC-721 kya hai, NFT kya hai, tokenId, tokenURI — OpenZeppelin docs + Hindi video"},
+            {t:"eng",text:"'The difference between ERC-20 and ERC-721' — English notes 5 lines"},
+            {t:"git",text:"nft-notes.md commit karo"},
+            {t:"biz",text:"NFT marketplace companies dhundho — Bangalore me ya remote kaam karti hain?"}
+          ]},
+          { title:"NFT contract likhna", tasks:[
+            {t:"task",text:"OpenZeppelin ERC-721 use karke NFT minting contract banao — safeMint function"},
+            {t:"eng",text:"NFT contract ke functions English me explain karo — comments likhte waqt"},
+            {t:"git",text:"MyNFT.sol commit karo"},
+            {t:"biz",text:"Twitter/X pe #NFTDeveloper ya #Web3Dev search — community dekho"}
+          ]},
+          { title:"Metadata + tokenURI", tasks:[
+            {t:"task",text:"NFT ka metadata JSON banao, IPFS ka concept samjho, tokenURI set karo"},
+            {t:"eng",text:"'What is NFT metadata' — English me explain karo README me"},
+            {t:"git",text:"metadata/ folder + NFT updated contract commit karo"},
+            {t:"biz",text:"LinkedIn pe NFT project ke baare me update post karo — progress share karo"}
+          ]},
+          { title:"NFT testnet pe deploy + mint", tasks:[
+            {t:"task",text:"NFT contract deploy karo, ek NFT mint karo, OpenSea testnets pe dekho"},
+            {t:"eng",text:"Deployment process English me document karo"},
+            {t:"git",text:"Deployed NFT address commit karo"},
+            {t:"biz",text:"Wellfound pe apply karo — ek company ko seriously target karo aaj"}
+          ]},
+          { title:"NFT minting frontend", tasks:[
+            {t:"task",text:"'Mint NFT' button wala frontend banao — connect wallet → click mint → NFT minted"},
+            {t:"eng",text:"Frontend UI text English me write karo — professional language"},
+            {t:"git",text:"nft-frontend/ commit karo"},
+            {t:"biz",text:"Kisi recruiter ka contact dhundho LinkedIn pe — note kar lo"}
+          ]},
+          { title:"Week 10 revision + Hardhat tests", tasks:[
+            {t:"task",text:"NFT contract ke liye Hardhat tests likho — minting, ownership, transfer"},
+            {t:"eng",text:"Test file ke comments English me likho — professional style"},
+            {t:"git",text:"nft-tests.js commit karo — sab tests green hone chahiye"},
+            {t:"biz",text:"Devfolio pe profile aur projects update karo — abhi NFT project bhi add karo"}
+          ]},
+          { title:"Week 10 wrap + portfolio check", tasks:[
+            {t:"task",text:"ERC-20 + ERC-721 dono ka ek portfolio page banao — ek HTML file jisme dono projects hain"},
+            {t:"eng",text:"Portfolio page ka content English me professionally likho"},
+            {t:"git",text:"portfolio.html commit karo — GitHub Pages enable karo portfolio live karne ke liye"},
+            {t:"biz",text:"Weekly check — Naukri, Wellfound, LinkedIn — koi naya opening?"}
+          ]}
+        ]},
+      { title:"Week 11 — NFT Marketplace dApp", meta:"Listing, buying, full-stack dApp",
+        days:[
+          { title:"Marketplace architecture plan", tasks:[
+            {t:"task",text:"NFT Marketplace ka architecture design karo — kaun se contracts, kaun se functions, data flow"},
+            {t:"eng",text:"Architecture English me document karo — 'The marketplace consists of...'"},
+            {t:"git",text:"marketplace-plan.md commit karo"},
+            {t:"biz",text:"Hackathon last check — koi aane wala hai? Agar yes — prepare start karo"}
+          ]},
+          { title:"Marketplace smart contract", tasks:[
+            {t:"task",text:"NFT list karne ka contract — NFT approve karna, listItem function, price set karna"},
+            {t:"eng",text:"Contract functions English comments ke sath — documentation style"},
+            {t:"git",text:"Marketplace.sol commit karo"},
+            {t:"biz",text:"5 companies ko apply karo aaj — portfolio ready hai na? Use karo"}
+          ]},
+          { title:"Buy function + ETH transfer", tasks:[
+            {t:"task",text:"buyItem function — buyer ETH bheje, seller ko jaye, NFT transfer ho — sab ek transaction me"},
+            {t:"eng",text:"'How the buy function works' — English me step by step explain karo README me"},
+            {t:"git",text:"buy-function update commit karo"},
+            {t:"biz",text:"LinkedIn pe 'I'm building an NFT Marketplace' post — screenshot ke sath"}
+          ]},
+          { title:"Marketplace frontend — listing page", tasks:[
+            {t:"task",text:"Listed NFTs dikhao — grid layout, each NFT ka image, price, seller address (short form)"},
+            {t:"eng",text:"UI text English me — 'List your NFT', 'Price in ETH', 'Buy Now'"},
+            {t:"git",text:"marketplace-frontend/ start commit karo"},
+            {t:"biz",text:"3 Bangalore blockchain companies ko direct email/message karo — portfolio attach karo"}
+          ]},
+          { title:"Marketplace frontend — buy flow", tasks:[
+            {t:"task",text:"NFT pe click karo → detail page → 'Buy Now' button → MetaMask se confirm → NFT mila!"},
+            {t:"eng",text:"Success/error messages English me — 'NFT purchased successfully!'"},
+            {t:"git",text:"buy-flow.js commit karo"},
+            {t:"biz",text:"Mock interview practice karo — 5 common Solidity interview questions ka jawab do"}
+          ]},
+          { title:"Testing + edge cases", tasks:[
+            {t:"task",text:"Marketplace ke sab edge cases test karo — double buy, insufficient ETH, owner buy own NFT"},
+            {t:"eng",text:"Test scenarios English me document karo"},
+            {t:"git",text:"marketplace-tests.js commit karo"},
+            {t:"biz",text:"Weekly companies check + ek baar sab platforms pe fresh search karo"}
+          ]},
+          { title:"Week 11 polish", tasks:[
+            {t:"task",text:"Marketplace UI ko professional banao — loading states, proper errors, mobile responsive"},
+            {t:"eng",text:"User experience improvements ko English me document karo"},
+            {t:"git",text:"polish commit karo — v1.0 tag lagao marketplace pe"},
+            {t:"biz",text:"Devfolio profile me NFT Marketplace project add karo — hackathon judges dekhenge"}
+          ]}
+        ]},
+      { title:"Week 12 — Portfolio complete + applying shuru", meta:"Showcase + resume + LinkedIn",
+        days:[
+          { title:"Marketplace deploy", tasks:[
+            {t:"task",text:"NFT Marketplace final version Sepolia pe deploy karo — frontend bhi live karo (GitHub Pages)"},
+            {t:"eng",text:"Deployment guide English me likho — koi bhi follow kar sake"},
+            {t:"git",text:"Final marketplace deploy commit + GitHub Pages enable"},
+            {t:"biz",text:"Apply karo — Wellfound pe 5 jobs aaj"},
+          ]},
+          { title:"Portfolio site update", tasks:[
+            {t:"task",text:"Portfolio HTML me dono projects (Crowdfunding dApp + NFT Marketplace) ke live links add karo"},
+            {t:"eng",text:"Project descriptions professionally English me write karo"},
+            {t:"git",text:"Portfolio site commit karo — GitHub Pages pe live karo"},
+            {t:"biz",text:"Apply karo — LinkedIn pe 5 jobs aaj"}
+          ]},
+          { title:"Resume final version", tasks:[
+            {t:"task",text:"Resume me dono completed projects ka proper description daalo — GitHub links, live demo links"},
+            {t:"eng",text:"Resume bullets polish karo — strong action verbs English me: Built, Deployed, Implemented, Designed"},
+            {t:"git",text:"Updated resume PDF commit karo"},
+            {t:"biz",text:"Naukri.com pe profile update karo — resume upload karo, location Bangalore set karo"}
+          ]},
+          { title:"LinkedIn profile polish", tasks:[
+            {t:"task",text:"LinkedIn banner update karo, about section rewrite karo, featured projects add karo"},
+            {t:"eng",text:"LinkedIn 'About' section 150-200 words English me professionally likho"},
+            {t:"git",text:"GitHub profile README.md update karo — skills, projects, contact info"},
+            {t:"biz",text:"10 companies ko LinkedIn pe follow karo — Bangalore blockchain focused"}
+          ]},
+          { title:"Cold outreach start", tasks:[
+            {t:"task",text:"5 companies ke founders ya CTOs ko LinkedIn pe personalized connect request bhejo"},
+            {t:"eng",text:"Cold outreach message English me likho — 3 lines, polite, specific, no copy paste"},
+            {t:"git",text:"outreach-tracker.md banao — kisko message kiya, kab, kya result hua"},
+            {t:"biz",text:"Referrals dhundho — koi bhi jo Web3 me kaam karta ho, unse jaano openings ke baare me"}
+          ]},
+          { title:"Month 3 revision", tasks:[
+            {t:"task",text:"Month 3 sab kuch review karo — ERC-20, ERC-721, Marketplace, Hardhat testing"},
+            {t:"eng",text:"Month 3 summary English me likho — GitHub README me add karo"},
+            {t:"git",text:"Month 3 final commit — sab projects clean, documented, live hain?"},
+            {t:"biz",text:"Monthly companies check — sabhi platforms pe fresh look — update karni hai strategy?"}
+          ]},
+          { title:"Hackathon final prep", tasks:[
+            {t:"task",text:"Hackathon idea finalize karo — tech stack confirm karo — kya banayenge, kyun unique hai"},
+            {t:"eng",text:"Hackathon project pitch 2 minutes English me prepare karo — bol kar practice karo"},
+            {t:"git",text:"hackathon-idea.md commit karo — plan document kar lo"},
+            {t:"biz",text:"Hackathon registration confirm karo — agar registered nahi to abi karo Devfolio pe"}
+          ]}
+        ]}
+    ]},
+  { name:"Month 4", focus:"Hackathons + applying + interviews",
+    weeks:[
+      { title:"Week 13 — Hackathon preparation", meta:"Build fast, team, pitch",
+        days:[
+          { title:"Hackathon speed practice", tasks:[
+            {t:"task",text:"Speed coding practice — 24 ghante me kya ban sakta hai? Ek simple dApp 3 ghante me banao"},
+            {t:"eng",text:"Pitch practice — '30-second elevator pitch' English me project ke baare me"},
+            {t:"git",text:"Speed-project commit karo — jitna bana utna daalo"},
+            {t:"biz",text:"Hackathon sponsors dekho — unme se koi hire bhi karta hai?"}
+          ]},
+          { title:"Previous winning projects dekho", tasks:[
+            {t:"task",text:"Devfolio pe last year ke ETHIndia ya Polygon hackathon winners dekho — kya pattern hai?"},
+            {t:"eng",text:"2 winning projects ka summary English me likho — 'They won because...'"},
+            {t:"git",text:"research-notes.md commit karo — insights note karo"},
+            {t:"biz",text:"Hackathon judges/sponsors — LinkedIn pe follow karo"}
+          ]},
+          { title:"Project blueprint + smart contract plan", tasks:[
+            {t:"task",text:"Hackathon project ka complete blueprint — smart contract design, functions, frontend plan"},
+            {t:"eng",text:"Blueprint English me document karo — agar team ho to share kar sako"},
+            {t:"git",text:"hackathon-blueprint.md commit karo"},
+            {t:"biz",text:"Applying — Wellfound + LinkedIn — 5 applications aaj"}
+          ]},
+          { title:"Tech stack confirm + boilerplate", tasks:[
+            {t:"task",text:"Hardhat project setup karo pehle se — boilerplate ready rakho hackathon ke din waste na ho"},
+            {t:"eng",text:"README template English me ready rakho — hackathon ke baad sirf project specific info daalni hogi"},
+            {t:"git",text:"hackathon-boilerplate/ commit karo"},
+            {t:"biz",text:"5 more jobs apply karo — targeting startups specifically"}
+          ]},
+          { title:"Mock hackathon — 6 hours", tasks:[
+            {t:"task",text:"6 ghante ka mock hackathon karo — timer lagao, idea lo, jo bana sako bana lo, GitHub pe daalo"},
+            {t:"eng",text:"Mock ke baad reflection English me — 'What went well, what was hard'"},
+            {t:"git",text:"mock-hackathon/ folder commit karo — jo bhi bana"},
+            {t:"biz",text:"Mock project ko Devfolio pe showcase karo — practice submission"}
+          ]},
+          { title:"Pitch practice", tasks:[
+            {t:"task",text:"2 minute pitch practice — project kya hai, problem kya solve karta hai, tech stack, demo"},
+            {t:"eng",text:"Pitch script English me likho aur 5 baar bol kar practice karo mirror ke saamne"},
+            {t:"git",text:"pitch-notes.md commit karo"},
+            {t:"biz",text:"Interview prep shuru — Solidity common interview questions dhundho"}
+          ]},
+          { title:"Week 13 final prep", tasks:[
+            {t:"task",text:"Hackathon ke din ka pura plan banao — kab kya karengi, kitna time har task ko"},
+            {t:"eng",text:"Ek English mock question practice karo — 'Tell me about yourself' Web3 context me"},
+            {t:"git",text:"Final pre-hackathon commit — sab tools ready hain?"},
+            {t:"biz",text:"Weekly companies check — koi reply aaya applications ka?"}
+          ]}
+        ]},
+      { title:"Week 14 — Hackathon + networking", meta:"Build + submit + connect",
+        days:[
+          { title:"Hackathon Day — Smart contract", tasks:[
+            {t:"task",text:"Smart contract likho — clean, tested, deployed to testnet — yahi core hai"},
+            {t:"eng",text:"Real-time me README likhna shuru karo hackathon project ka — English me"},
+            {t:"git",text:"Hackathon project repo banao — regular commits karo hackathon ke dauran"},
+            {t:"biz",text:"Hackathon Discord/Slack me join karo — networking ka mauka!"}
+          ]},
+          { title:"Hackathon — Frontend", tasks:[
+            {t:"task",text:"Frontend banao — simple, functional — judges use kar sakein demo me"},
+            {t:"eng",text:"UI text English me professional rakho — judges padh rahe hain"},
+            {t:"git",text:"Frontend commits karo"},
+            {t:"biz",text:"Other participants se baat karo — industry me kya ho raha hai?"}
+          ]},
+          { title:"Hackathon — Integration + testing", tasks:[
+            {t:"task",text:"Frontend ko smart contract se connect karo — sab functions test karo time se pehle"},
+            {t:"eng",text:"Demo script English me ready karo — presentation ke liye"},
+            {t:"git",text:"Integration commits karo"},
+            {t:"biz",text:"Judges ya sponsors se baat karo — unhe batao kya bana rahe ho"}
+          ]},
+          { title:"Hackathon — Submit + demo", tasks:[
+            {t:"task",text:"Devfolio pe project submit karo — README, screenshots, video, live demo sab include karo"},
+            {t:"eng",text:"Submission description English me professionally likho — best attempt"},
+            {t:"git",text:"Final submission commit — 'v1.0.0 hackathon submission' tag lagao"},
+            {t:"biz",text:"Judges ke sath time ho to portfolio share karo — business card wali mentality"}
+          ]},
+          { title:"Post-hackathon networking", tasks:[
+            {t:"task",text:"Hackathon me mile logo ko LinkedIn pe add karo — sab participants, mentors, judges"},
+            {t:"eng",text:"Personal message English me bhejo har connection ko — 'Great meeting you at...'"},
+            {t:"git",text:"Hackathon project ko GitHub pe polish karo — proper documentation ke sath"},
+            {t:"biz",text:"Hackathon project ko 5 companies ke HRs ko share karo — cold message"}
+          ]},
+          { title:"Hackathon project LinkedIn post", tasks:[
+            {t:"task",text:"LinkedIn pe hackathon participation post karo — project, learnings, team, screenshot"},
+            {t:"eng",text:"Post English me acha likho — '48 hours ago I started building...' engaging hona chahiye"},
+            {t:"git",text:"Hackathon project README final update karo"},
+            {t:"biz",text:"10 more job applications — portfolio aur hackathon project ke sath apply karo"}
+          ]},
+          { title:"Week 14 reflection", tasks:[
+            {t:"task",text:"Hackathon se kya seekha — technically aur practically — list banao"},
+            {t:"eng",text:"Reflection English me journal me likho — 'The hackathon taught me...'"},
+            {t:"git",text:"learnings.md commit karo — ye interviews me use hoga"},
+            {t:"biz",text:"Weekly companies check — koi response aa raha hai applications ka?"}
+          ]}
+        ]},
+      { title:"Week 15 — Applying aggressively", meta:"5 apps daily + mock interviews",
+        days:[
+          { title:"Resume final polish", tasks:[
+            {t:"task",text:"Resume ka ek aur review karo — sab kuch current hai? Hackathon add kiya? Links kaam kar rahe hain?"},
+            {t:"eng",text:"Kisi English-fluent person ko resume dikhao ya grammarly se check karo"},
+            {t:"git",text:"Final resume PDF commit karo"},
+            {t:"biz",text:"5 companies apply — Wellfound focus karo aaj"}
+          ]},
+          { title:"Technical interview prep — Solidity", tasks:[
+            {t:"task",text:"Top 20 Solidity interview questions dhundho — har ek ka jawab prepare karo (notes banao)"},
+            {t:"eng",text:"Jawab English me bol kar practice karo — camera on kar ke khud record karo 3 questions"},
+            {t:"git",text:"interview-prep.md commit karo — ye tera resource hai"},
+            {t:"biz",text:"5 companies apply — LinkedIn focus karo aaj"}
+          ]},
+          { title:"Technical prep — Web3 concepts", tasks:[
+            {t:"task",text:"'What is gas?', 'Difference between ERC-20 and ERC-721?', 'How does MetaMask work?' — prepare karo"},
+            {t:"eng",text:"5 questions English me bol kar answer karo — timing karo 2 min per answer"},
+            {t:"git",text:"Interview prep notes update karo"},
+            {t:"biz",text:"5 companies apply — cryptojobslist + Naukri aaj"}
+          ]},
+          { title:"HR interview prep — English focus", tasks:[
+            {t:"task",text:"'Tell me about yourself', 'Why blockchain?', 'Where do you see yourself in 2 years?' — prepare karo"},
+            {t:"eng",text:"Sab answers English me likhke bolo — aaj zyada focus English fluency pe hai"},
+            {t:"git",text:"hr-prep.md commit karo"},
+            {t:"biz",text:"Follow-up emails bhejo jo 1 week pehle apply kiya tha — polite English me"}
+          ]},
+          { title:"Mock technical interview", tasks:[
+            {t:"task",text:"Kisi friend ke sath ya khud mirror ke saamne — mock interview karo, 30 min, Solidity questions"},
+            {t:"eng",text:"Poora mock interview English me karo — ye bahut zaroori practice hai"},
+            {t:"git",text:"Mock interview feedback ko notes me likho aur commit karo"},
+            {t:"biz",text:"5 companies apply — direct founders ko bhi message karo"}
+          ]},
+          { title:"Portfolio one more review", tasks:[
+            {t:"task",text:"Portfolio site + GitHub ek baar fresh browser se dekho — koi broken link? Koi error?"},
+            {t:"eng",text:"Portfolio site ka content fir padho — koi grammar mistake? grammarly use karo"},
+            {t:"git",text:"Any last fixes commit karo"},
+            {t:"biz",text:"Today's 5 applications + follow up on older ones"}
+          ]},
+          { title:"Week 15 review", tasks:[
+            {t:"task",text:"Kitne applications bheje abhi tak? Kitne responses? Strategy kya adjust karni chahiye?"},
+            {t:"eng",text:"Job search update English me journal me likho — 'This week I applied to...'"},
+            {t:"git",text:"outreach-tracker.md update karo — sab applications track ho rahe hain?"},
+            {t:"biz",text:"Weekly companies check — koi naya opening? Koi follow-up pending?"}
+          ]}
+        ]},
+      { title:"Week 16 — Final push + interviews", meta:"Interviews + negotiate + celebrate!",
+        days:[
+          { title:"Interview follow-ups", tasks:[
+            {t:"task",text:"Sab pending applications ko follow up email bhejo — polite, professional, English me"},
+            {t:"eng",text:"Follow-up email template English me likho — phir personalize karo har company ke liye"},
+            {t:"git",text:"outreach-tracker update karo"},
+            {t:"biz",text:"5 new applications aaj bhi — band mat karo applying"}
+          ]},
+          { title:"If interview scheduled — final prep", tasks:[
+            {t:"task",text:"Interview wali company ke baare me research karo — product, team, tech stack, recent news"},
+            {t:"eng",text:"'Why do you want to join our company?' — English me prepare karo — company specific"},
+            {t:"git",text:"company-research.md banao — note karo kya seekha"},
+            {t:"biz",text:"Referral dhundho is company ke liye — LinkedIn pe dekho koi connection hai?"}
+          ]},
+          { title:"Blockchain concepts final revision", tasks:[
+            {t:"task",text:"Sab important concepts ek baar revise karo — Gas, Consensus, Smart Contracts, ERC standards"},
+            {t:"eng",text:"5 technical questions English me bol kar answer karo — timer lagao"},
+            {t:"git",text:"Final revision notes commit karo"},
+            {t:"biz",text:"Applying continue karo — ek 'No' se ruko mat"}
+          ]},
+          { title:"Coding interview practice", tasks:[
+            {t:"task",text:"HackerRank ya LeetCode pe 2 easy JavaScript problems solve karo — kuch companies coding test bhi lete hain"},
+            {t:"eng",text:"Problem ko English me explain karo — 'First I will..., then I will...'"},
+            {t:"git",text:"Coding practice solutions commit karo"},
+            {t:"biz",text:"Salary negotiation — research karo blockchain fresher Bangalore ka market rate — data ke sath negotiate karo"}
+          ]},
+          { title:"Continue applying — 5 more", tasks:[
+            {t:"task",text:"Applying kabhi band mat karo — jab tak offer na ho, 5 applications daily"},
+            {t:"eng",text:"Ek new cold outreach message template English me likho — alag angle se"},
+            {t:"git",text:"GitHub daily green rakho — kuch contribute karo"},
+            {t:"biz",text:"Koi bhi response aaya ho usse prioritize karo — ek interview ek chance hai"}
+          ]},
+          { title:"Celebrate your journey!", tasks:[
+            {t:"task",text:"4 mahine pehle tum yahan thi — aaj 2 deployed dApps, NFT project, hackathon, aur job hunt — ye achievement hai"},
+            {t:"eng",text:"Apni journey ke baare me ek English LinkedIn post likho — inspire karo doosron ko"},
+            {t:"git",text:"4-month-journey.md banao — kya kiya, kya seekha, kya hard tha — commit karo"},
+            {t:"biz",text:"Jo bhi offers aayi hain unhe carefully evaluate karo — growth potential, tech stack, team sab dekho"}
+          ]},
+          { title:"Keep going — yeh sirf shuruat hai!", tasks:[
+            {t:"task",text:"Agle 6 mahine ka plan banao — Dubai ka target, advanced concepts (DeFi, Layer 2), salary growth"},
+            {t:"eng",text:"'My next 6 months plan' — English me journal me likho — sapne bade rakho"},
+            {t:"git",text:"Next-roadmap.md commit karo — ab tum ek developer ho jo plan bana sakti ho"},
+            {t:"biz",text:"Dubai blockchain jobs explore karo — crypto.com, Binance, Bybit, OKX — unki requirements note karo"}
+          ]}
+        ]}
+    ]}
+];
+
+const STORAGE_KEY = 'chhaya-roadmap-v2';
+const START_KEY = 'chhaya-start-date-v2';
+const TOTAL_DAYS = 112;
+
+let startDate = null;
+let currentDay = 1;
+let checked = {};
+
+function dayOffset(dayIdx) {
+  if (!startDate) return null;
+  const d = new Date(startDate);
+  d.setDate(d.getDate() + dayIdx);
+  return d;
+}
+
+function fmtDate(d) {
+  if (!d) return '';
+  return d.toLocaleDateString('en-IN', {weekday:'short', day:'numeric', month:'short'});
+}
+
+function getDayIndex(mi, wi, di) {
+  let idx = 0;
+  for (let m = 0; m < mi; m++) idx += ROADMAP[m].weeks.reduce((a,w)=>a+w.days.length,0);
+  for (let w = 0; w < wi; w++) idx += ROADMAP[mi].weeks[w].days.length;
+  idx += di;
+  return idx;
+}
+
+function buildUI() {
+  const tabsEl = document.getElementById('month-tabs');
+  const panelsEl = document.getElementById('month-panels');
+  tabsEl.innerHTML = ''; panelsEl.innerHTML = '';
+
+  let globalDayIdx = 0;
+
+  ROADMAP.forEach((month, mi) => {
+    const tab = document.createElement('div');
+    tab.className = 'm-tab' + (mi===0?' active':'');
+    tab.textContent = month.name;
+    tab.dataset.mi = mi;
+    tab.onclick = () => switchMonth(mi);
+    tabsEl.appendChild(tab);
+
+    const panel = document.createElement('div');
+    panel.className = 'month-content' + (mi===0?' show':'');
+    panel.id = 'panel-'+mi;
+
+    const monthStart = globalDayIdx;
+    let monthDays = 0;
+    month.weeks.forEach(w => monthDays += w.days.length);
+    const monthEnd = monthStart + monthDays - 1;
+
+    const mhBox = document.createElement('div');
+    mhBox.className = 'month-header-box';
+    const d1 = dayOffset(monthStart), d2 = dayOffset(monthEnd);
+    mhBox.innerHTML = `<div>
+      <div class="mname">${month.name}</div>
+      <div class="mdates">${d1?fmtDate(d1)+' – '+fmtDate(d2):'Dates will show after start'}</div>
+    </div>
+    <div class="mfocus">${month.focus}</div>`;
+    panel.appendChild(mhBox);
+
+    month.weeks.forEach((week, wi) => {
+      const weekEl = document.createElement('div');
+      weekEl.className = 'week-card';
+      weekEl.id = `wk-${mi}-${wi}`;
+
+      const weekHead = document.createElement('div');
+      weekHead.className = 'week-head';
+      weekHead.onclick = () => weekEl.classList.toggle('open');
+
+      const wDays = week.days.length;
+      const wStart = globalDayIdx;
+      const wEnd = globalDayIdx + wDays - 1;
+      const d1w = dayOffset(wStart), d2w = dayOffset(wEnd);
+      const dateLbl = d1w ? `${fmtDate(d1w)} – ${fmtDate(d2w)}` : '';
+
+      weekHead.innerHTML = `<div class="week-head-left">
+        <div class="wtitle">${week.title}</div>
+        <div class="week-meta">${week.meta} &nbsp;|&nbsp; ${dateLbl}</div>
+      </div>
+      <div class="week-head-right">
+        <span class="wprog" id="wprog-${mi}-${wi}">0/${wDays*4}</span>
+        <span class="wchev">›</span>
+      </div>`;
+      weekEl.appendChild(weekHead);
+
+      const daysContainer = document.createElement('div');
+      daysContainer.className = 'week-days';
+
+      week.days.forEach((day, di) => {
+        const gIdx = globalDayIdx;
+        const isToday = (gIdx === currentDay - 1);
+        const dayDate = dayOffset(gIdx);
+
+        const dayRow = document.createElement('div');
+        dayRow.className = 'day-row' + (isToday ? ' today-row' : '');
+        dayRow.id = `day-${gIdx}`;
+
+        let dayTopHtml = `<div class="day-top">
+          <span class="day-num-badge${isToday?' today-badge':''}">${isToday?'TODAY':('Day '+(gIdx+1))}</span>
+          <span class="day-date-lbl">${dayDate ? fmtDate(dayDate) : ''}</span>
+          <span class="day-title-lbl">${day.title}</span>
+        </div>`;
+
+        let tasksHtml = '';
+        day.tasks.forEach((task, ti) => {
+          const tid = `t-${gIdx}-${ti}`;
+          const pillMap = {task:'pill-task',eng:'pill-eng',git:'pill-git',biz:'pill-biz'};
+          const pillLabel = {task:'Blockchain',eng:'English',git:'GitHub',biz:'Companies'};
+          const cls = task.t;
+          tasksHtml += `<div class="task-item ${cls}">
+            <input type="checkbox" id="${tid}" data-tid="${tid}" ${checked[tid]?'checked':''}>
+            <label for="${tid}"><span class="pill ${pillMap[cls]}">${pillLabel[cls]}</span>${task.text}</label>
+          </div>`;
+        });
+
+        dayRow.innerHTML = dayTopHtml + tasksHtml;
+        daysContainer.appendChild(dayRow);
+        globalDayIdx++;
+      });
+
+      weekEl.appendChild(daysContainer);
+      panel.appendChild(weekEl);
+
+      if (wi === getCurrentWeek(mi, month) && mi === getCurrentMonth()) {
+        weekEl.classList.add('open');
+      }
+    });
+
+    panelsEl.appendChild(panel);
+  });
+
+  document.querySelectorAll('.task-item input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', () => { checked[cb.dataset.tid] = cb.checked; updateProgress(); saveProgress(); });
+  });
+
+  updateProgress();
+  scrollToToday();
+}
+
+function getCurrentMonth() {
+  let gIdx = 0;
+  for (let mi = 0; mi < ROADMAP.length; mi++) {
+    let cnt = 0;
+    ROADMAP[mi].weeks.forEach(w => cnt += w.days.length);
+    if (currentDay - 1 < gIdx + cnt) return mi;
+    gIdx += cnt;
+  }
+  return ROADMAP.length - 1;
+}
+
+function getCurrentWeek(mi, month) {
+  let gIdx = 0;
+  for (let m2 = 0; m2 < mi; m2++) ROADMAP[m2].weeks.forEach(w => gIdx += w.days.length);
+  for (let wi = 0; wi < month.weeks.length; wi++) {
+    gIdx += month.weeks[wi].days.length;
+    if (currentDay - 1 < gIdx) return wi;
+  }
+  return month.weeks.length - 1;
+}
+
+function switchMonth(mi) {
+  document.querySelectorAll('.m-tab').forEach((t,i) => t.classList.toggle('active', i===mi));
+  document.querySelectorAll('.month-content').forEach((p,i) => p.classList.toggle('show', i===mi));
+}
+
+function scrollToToday() {
+  const el = document.querySelector('.today-row');
+  if (el) setTimeout(() => el.scrollIntoView({behavior:'smooth', block:'center'}), 400);
+}
+
+function updateProgress() {
+  const allCbs = document.querySelectorAll('.task-item input[type=checkbox]');
+  const checkedCbs = document.querySelectorAll('.task-item input[type=checkbox]:checked');
+  const pct = allCbs.length ? Math.round(checkedCbs.length / allCbs.length * 100) : 0;
+  document.getElementById('pct-disp').textContent = pct + '%';
+  document.getElementById('bar').style.width = pct + '%';
+  document.getElementById('prog-sub').textContent = checkedCbs.length + ' / ' + allCbs.length + ' tasks complete';
+
+  let mi = 0, gIdx = 0;
+  ROADMAP.forEach((month, m) => {
+    month.weeks.forEach((week, wi) => {
+      let wc = 0, wt = 0;
+      week.days.forEach((day, di) => {
+        day.tasks.forEach((_, ti) => {
+          wt++;
+          if (checked[`t-${gIdx}-${ti}`]) wc++;
+        });
+        gIdx++;
+      });
+      const el = document.getElementById(`wprog-${m}-${wi}`);
+      if (el) el.textContent = wc + '/' + wt;
+    });
+  });
+}
+
+async function saveProgress() {
+  const note = document.getElementById('save-note');
+  try {
+    await window.storage.set(STORAGE_KEY, JSON.stringify(checked), false);
+    note.textContent = 'Saved ✓'; setTimeout(() => note.textContent='', 1500);
+  } catch(e) { note.textContent = 'Save nahi hua'; }
+}
+
+async function loadProgress() {
+  try {
+    const res = await window.storage.get(STORAGE_KEY, false);
+    if (res && res.value) checked = JSON.parse(res.value);
+  } catch(e) {}
+}
+
+async function loadStartDate() {
+  try {
+    const res = await window.storage.get(START_KEY, false);
+    if (res && res.value) {
+      startDate = new Date(res.value);
+    } else {
+      startDate = new Date();
+      startDate.setHours(0,0,0,0);
+      await window.storage.set(START_KEY, startDate.toISOString(), false);
+    }
+  } catch(e) {
+    startDate = new Date();
+    startDate.setHours(0,0,0,0);
+  }
+
+  const now = new Date(); now.setHours(0,0,0,0);
+  const diff = Math.floor((now - startDate) / 86400000) + 1;
+  currentDay = Math.max(1, Math.min(diff, TOTAL_DAYS));
+
+  document.getElementById('day-num').textContent = currentDay;
+  document.getElementById('days-left').textContent = Math.max(0, TOTAL_DAYS - currentDay + 1);
+  document.getElementById('week-num').textContent = Math.ceil(currentDay / 7);
+  document.getElementById('month-num').textContent = Math.ceil(currentDay / 28);
+
+  const mi = getCurrentMonth();
+  const todayName = ROADMAP[mi]?.weeks[getCurrentWeek(mi, ROADMAP[mi])]?.days[(currentDay-1)%7]?.title || '';
+  document.getElementById('today-title').textContent = `Day ${currentDay} — Week ${Math.ceil(currentDay/7)}`;
+  document.getElementById('today-date').textContent = `${fmtDate(new Date())} — ${todayName}`;
+
+  const activeMi = getCurrentMonth();
+  switchMonth(activeMi);
+}
+
+document.getElementById('reset-btn').addEventListener('click', async () => {
+  if (!confirm('Sach me sab progress reset karna hai?')) return;
+  checked = {};
+  document.querySelectorAll('.task-item input[type=checkbox]').forEach(cb => cb.checked = false);
+  updateProgress();
+  await saveProgress();
+});
+
+async function init() {
+  await loadProgress();
+  await loadStartDate();
+  buildUI();
+}
+init();
+</script>
+</body>
+</html>
